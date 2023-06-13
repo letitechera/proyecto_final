@@ -13,5 +13,4 @@
 - Si se quiere limpiar la búsqueda, dar click en 'Submit' con el campo de buscar vacío
 
 #### Gracias!!
-
-## Leticia Techera - Uruguay
+#### Leticia Techera
