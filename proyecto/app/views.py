@@ -45,8 +45,11 @@ def manageusers(request):
 
         if my_form.is_valid():
             info = my_form.cleaned_data
-            user = AppUser(username=info['username'],password=info['password'],email=info['email'])
-            user.save()
+            exists = AppUser.objects.filter(username=info['username']).exists()
+
+            if not exists:
+                user = AppUser(username=info['username'],password=info['password'],email=info['email'])
+                user.save()
 
     my_form = AppUserForm()
     users = AppUser.objects.all()

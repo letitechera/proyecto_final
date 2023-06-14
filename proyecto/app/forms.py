@@ -15,10 +15,10 @@ class PostsForm(forms.Form):
 class AppUserForm(forms.Form):
     username = forms.CharField(max_length=100)
     password = forms.CharField(widget=forms.PasswordInput)
-    email = forms.CharField()
+    email = forms.CharField(widget=forms.EmailInput)
 
 class ProfileForm(forms.Form):
-    app_user = forms.ModelChoiceField(queryset=AppUser.objects.all())
+    app_user = forms.ModelChoiceField(queryset=AppUser.objects.filter(profile__isnull=True))
     name = forms.CharField()
     lastname = forms.CharField()
     profile_image = forms.ImageField(required=False)
