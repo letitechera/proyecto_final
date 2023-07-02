@@ -1,0 +1,63 @@
+{% extends 'app/layout.html' %}
+
+{% load static %}
+
+{% block title %} Messages {% endblock title %}
+
+{% block main %}
+
+<section class="bg-white py-8">
+  <div class="container max-w-3xl mx-auto m-8">
+    <h1 class="w-full my-2 pt-4 text-2xl font-bold leading-tight text-center text-gray-800 serif-font">
+      <span class="text-gray-400">Chat with</span>
+      {% if contact.profile.name %}
+      {{contact.profile.name}} {{contact.profile.lastname}}
+      {% else %}
+      {{contact.username}}
+      {% endif %}
+    </h1>
+    <div class="w-full mb-4">
+      <div class="h-1 mx-auto bg-gradient-to-r from-slate-200 to-stone-400 w-64 opacity-25 my-0 py-0"></div>
+    </div>
+    <div class="flex flex-col gap-4 mt-4">
+      <form method="post" id="message-input">
+        {% csrf_token %}
+        <div class="flex justify-between gap-4">
+          {{ form.as_div }}
+          <button type="submit"
+            class="py-2 px-4 text-sm text-sky-700 bg-sky-100 hover:opacity-70 rounded transition duration-500 ease-in-out">
+            Send
+          </button>
+        </div>
+      </form>
+      <div id="messages-container"
+        class="flex flex-col mt-4 border border-gray-200 shadow rounded divide-y divide-gray-200 text-sm">
+        {% if messages %}
+        {% for message in messages %}
+        {% if message.from_user == request.user %}
+        <div class="py-4 px-6 bg-gray-50 text-right">
+          <!-- Description -->
+          <p class="text-gray-400 text-xs">{{ message.date }}</p>
+          <p class="text-gray-600 text-sm">
+            {{ message.message }}
+          </p>
+        </div>
+        {% else %}
+        <div class="py-4 px-6">
+          <!-- Description -->
+          <p class="text-gray-400 text-xs">{{ message.date }}</p>
+          <p class="text-gray-600 text-sm">
+            <span class="text-sky-700 font-bold">{{ message.from_user }}: </span>
+            {{ message.message }}
+          </p>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% else %}
+        <p class="py-4 px-6 text-center italic text-gray-400">You have no messages with {{contact.username}} yet.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock main %}

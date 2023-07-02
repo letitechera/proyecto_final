@@ -1,0 +1,70 @@
+{% extends 'app/layout.html' %}
+
+{% load static %}
+
+{% block title %} Messages {% endblock title %}
+
+{% block main %}
+
+<section class="bg-white py-8">
+  <div class="container max-w-5xl mx-auto m-8">
+    <h1 class="w-full my-2 pt-4 text-5xl font-bold leading-tight text-center text-gray-800 serif-font">
+      Messages
+    </h1>
+    <div class="w-full mb-4">
+      <div class="h-1 mx-auto bg-gradient-to-r from-slate-200 to-stone-400 w-64 opacity-25 my-0 py-0"></div>
+    </div>
+    <form class="text-black" method="POST" id="select-recipient-form">
+      <div class="flex">
+        {% csrf_token %}
+        <table id="form-table">
+          {{form.as_table}}
+        </table>
+        <button type="submit"
+          class="cursor-pointer text-sm ml-4 py-2 px-4 rounded border border-slate-300 bg-slate-100 text-slate-600 hover:opacity-70 transition">
+          <i class="fa-solid fa-paper-plane mt-1 mr-1"></i>
+          Send New Message
+        </button>
+      </div>
+    </form>
+    <!-- <div class="">
+      <a href="{% url 'Create_Post' %}"
+        class="cursor-pointer text-sm py-2 px-4 rounded border border-slate-300 bg-slate-100 text-slate-600 hover:opacity-70 transition">
+        <i class="fa-solid fa-paper-plane mt-1 mr-1"></i>
+        Send New Message
+      </a>
+    </div> -->
+    <div class="flex flex-col bg-white mt-4 border border-gray-200 shadow rounded divide-y divide-gray-200 text-sm">
+      {% if contacts %}
+      {% for contact in contacts %}
+      <a class="block py-4 px-6 hover:bg-gray-50 flex justify-between"
+        href="{% url 'Conversation' username=contact.user.username %}" title="Go to conversation">
+        <span>
+          with
+          <span class="text-sky-700">
+            {% if contact.name %}
+            {{contact.name}} {{contact.lastname}}
+            {% else %}
+            {{contact.user.email}}
+            {% endif %}
+          </span>
+        </span>
+        <span>
+          {% if contact.last_message.from_user == request.user %}
+          {{contact.last_message}} (me)
+          {% else %}
+          {{contact.last_message}}
+          {% endif %}
+        </span>
+        <span class="text-gray-400">
+          {{contact.last_message.date|date:"h:m A, d M, Y"}}
+        </span>
+      </a>
+      {% endfor %}
+      {% else %}
+      <p>No messages found.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock main %}

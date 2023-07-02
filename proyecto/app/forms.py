@@ -1,27 +1,43 @@
 from django import forms
-from app.models import AppUser
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from ckeditor.widgets import CKEditorWidget
+from .models import BlogPost, Message
 
 class SearchPosts(forms.Form):
     search = forms.CharField(required=False)
 
-class PostsForm(forms.Form):
-    app_user = forms.ModelChoiceField(queryset=AppUser.objects.all())
-    title = forms.CharField()
-    summary = forms.CharField(widget=forms.Textarea)
-    content = forms.CharField(widget=forms.Textarea)
-    category = forms.CharField()
-    image = forms.ImageField(required=False)
+class RegisterUserForm(UserCreationForm):
+    email = forms.EmailField()
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Repete password', widget=forms.PasswordInput)
 
-class AppUserForm(forms.Form):
-    username = forms.CharField(max_length=100)
-    password = forms.CharField(widget=forms.PasswordInput)
-    email = forms.CharField(widget=forms.EmailInput)
+    class Meta:
+        model = User
+        fields = ["username", "email", "password1", "password2"]
+        help_texts = { key: '' for key in fields }
+
+class BlogPostForm(forms.ModelForm):
+    class Meta:
+        model = BlogPost
+        fields = ['title', 'summary', 'category', 'content', 'image']
+        widgets = {
+            'content': CKEditorWidget()
+        }
 
 class ProfileForm(forms.Form):
-    app_user = forms.ModelChoiceField(queryset=AppUser.objects.filter(profile__isnull=True))
+    username = forms.CharField(required=True)
+    email = forms.EmailField(required=False)
     name = forms.CharField()
     lastname = forms.CharField()
     profile_image = forms.ImageField(required=False)
     description = forms.CharField(widget=forms.Textarea)
     webpage = forms.CharField()
+
+class SelectRecipientForm(forms.Form):
+    recipient = forms.ModelChoiceField(queryset=User.objects.all(), label='To')
     
+class MessageForm(forms.Form):
+    message_input = forms.CharField(label='', widget=forms.Textarea)
+
+

@@ -15,20 +15,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from django.conf import settings
-from django.conf.urls.static import static
 from app import views
 
 urlpatterns = [
-    path('', views.inicio, name="Inicio"),
-    path('about-me', views.about, name="About me"),
+    path('', views.inicio, name="Home"),
+    path('register', views.registeruser, name="Register"),
+    path('login', views.login, name="Login"),
+    path('logout', views.Logout.as_view(), name='Logout'),
+    path('about-me', views.about, name="About"),
     path('blog-posts', views.postslist, name="Blog_Posts"),
-    path('manage-posts', views.manageposts, name="Manage_Posts"),
-    path('manage-users', views.manageusers, name="Manage_Users"),
-    path('manage-profiles', views.manageprofiles, name="Manage_Profiles"),
-    # path('post/<int:id>', views.post, name="Blog_Post_Detail"),
-    # path('edit-post/<id>', views.post, name="Edit_Post"),
-    # path('delete-post/<id>', views.deletepost, name="Delete_Post"),
+    path('my-posts', views.myposts, name="My_Posts"),
+    path('edit-post', views.managepost, name="Create_Post"),
+    path('edit-post/<int:post_id>/', views.managepost, name="Edit_Post"),
+    path('blog-post/<int:post_id>/', views.detailpost, name="Detail_Post"),
+    path('delete-post/<int:post_id>/', views.deleteblog, name='Delete_Blog'),
+    path('edit-profile', views.manageprofile, name="Edit_Profile"),
+    path('profile/<username>', views.myprofile, name="Profile"),
+    path('messages', views.messages, name="Messages"),
+    path('conversation/<username>', views.conversation, name="Conversation"),
 ]
-
-urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

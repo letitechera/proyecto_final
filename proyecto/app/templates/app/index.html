@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %} Inicio {% endblock title %}
+{% block title %} Home {% endblock title %}
 
 {% block main %}
 
@@ -56,9 +56,9 @@
     </g>
   </svg>
 </div>
-<section class="bg-white py-8">
+<section class="bg-white py-6">
   <div class="container max-w-5xl mx-auto m-8">
-    <h1 class="w-full my-2 pt-4 text-5xl font-bold leading-tight text-center text-gray-800">
+    <h1 class="w-full my-2 pt-4 text-5xl font-bold leading-tight text-center text-gray-800 serif-font">
       Developer's Blog
     </h1>
     <div class="w-full mb-4">
@@ -66,18 +66,28 @@
     </div>
     <div class="flex flex-wrap">
       <div class="w-5/6 sm:w-1/2 p-6">
-        <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
-          Lorem ipsum dolor sit amet
+        <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3 serif-font">
+          Welcome!
         </h3>
         <p class="text-gray-600 mb-8">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ipsum eu nunc commodo posuere et sit amet
-          ligula.
-          <br />
-          <br />
-
-          Images from:
-
-          <a class="text-pink-500 underline" href="https://undraw.co/">undraw.co</a>
+          To the coolest hangout spot for tech enthusiasts like yourself. <br>
+          Get ready to dive into a world of coding wizardry, where we serve up piping-hot insights, snappy tips, and
+          finger-licking tutorials to level up your programming game.
+        </p>
+        <p class="text-gray-600 mb-8">
+          Our blog is a powerhouse of brainy developers and industry gurus, all gathered here to spill the beans on the
+          latest programming languages, frameworks, and tools.<br>
+          From Python's sneaky tricks to JavaScript's hipster vibes, we've got it all covered.<br>
+          We keep our fingers on the pulse of the tech world, so you can sip on the freshest trends and master the
+          coding dance moves.
+        </p>
+        <p class="text-gray-600 mb-8">
+          Forget the old-school, dusty textbooks. We're all about web development, mobile app magic, AI sorcery, and
+          cloud computing adventures.<br>
+          Whether you're craving web apps with extra spice, smooth mobile interfaces, or the secrets of machine
+          learning, our blog is your ticket to the coolest programming rollercoaster.<br>
+          Join our gang of brainiac developers, share your own genius ideas, and let's embark on an epic quest of
+          learning and geeky awesomeness together.
         </p>
       </div>
       <div class="w-full sm:w-1/2 p-6">
@@ -87,78 +97,41 @@
     </div>
   </div>
 </section>
-<section class="bg-white py-8">
+{% if latest_posts %}
+<section class="bg-white">
   <div class="container mx-auto flex flex-wrap pt-4 pb-12">
-    <h1 class="w-full my-2 pt-4 text-5xl font-bold leading-tight text-center text-gray-800">
+    <h1 class="w-full my-2 pt-4 text-5xl font-bold leading-tight text-center text-gray-800 serif-font">
       Latest posts
     </h1>
     <div class="w-full mb-4">
       <div class="h-1 mx-auto bg-gradient-to-r from-slate-200 to-stone-400 w-64 opacity-25 my-0 py-0"></div>
     </div>
+
+    {% for blog in latest_posts %}
     <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
       <div class="flex-1 bg-white rounded overflow-hidden shadow">
         <a href="#" class="flex flex-wrap text-gray-800">
-          <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*dIWv_SFaKlWhoM2YEOMFcg.png" height="150px"
-            class="rounded-t" />
-          <p class="text-gray-600 w-full text-xs md:text-sm px-6 pt-2">
+          <!-- <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*dIWv_SFaKlWhoM2YEOMFcg.png" height="150px"
+            class="rounded-t" /> -->
+
+          <div class="w-full h-[150px]">
+            <img src="{{ blog.image.url }}" class="object-cover w-full h-[150px] rounded-t" />
+          </div>
+          <p class="text-gray-400 w-full text-xs md:text-sm px-6 pt-2 pb-1">
             May 23, 2023
           </p>
-          <div class="w-full font-bold text-xl px-6 serif-font">
-            Lorem ipsum dolor sit amet.
+          <div class="w-full font-bold text-xl px-6 serif-font pb-1">
+            {{blog.title}}
           </div>
-          <p class="text-sm px-6 mb-2">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ipsum eu nunc commodo posuere et sit
-            amet ligula.
+          <p class="text-sm px-6 mb-2 pb-1">
+            {{blog.summary}}
           </p>
-          <div class="w-full text-base pb-4 px-6 flex justify-end">
-            <span class="text-orange-500">learn more...</span>
-          </div>
         </a>
       </div>
     </div>
-    <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
-      <div class="flex-1 bg-white rounded overflow-hidden shadow">
-        <a href="#" class="flex flex-wrap text-gray-800">
-          <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*dIWv_SFaKlWhoM2YEOMFcg.png" height="150px"
-            class="rounded-t" />
-          <p class="text-gray-600 w-full text-xs md:text-sm px-6 pt-2">
-            May 23, 2023
-          </p>
-          <div class="w-full font-bold text-xl px-6 serif-font">
-            Lorem ipsum dolor sit amet.
-          </div>
-          <p class="text-sm px-6 mb-2">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ipsum eu nunc commodo posuere et sit
-            amet ligula.
-          </p>
-          <div class="w-full text-base pb-4 px-6 flex justify-end">
-            <span class="text-orange-500">learn more...</span>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
-      <div class="flex-1 bg-white rounded overflow-hidden shadow">
-        <a href="#" class="flex flex-wrap text-gray-800">
-          <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*dIWv_SFaKlWhoM2YEOMFcg.png" height="150px"
-            class="rounded-t" />
-          <p class="text-gray-600 w-full text-xs md:text-sm px-6 pt-2">
-            May 23, 2023
-          </p>
-          <div class="w-full font-bold text-xl px-6 serif-font">
-            Lorem ipsum dolor sit amet.
-          </div>
-          <p class="text-sm px-6 mb-2">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ipsum eu nunc commodo posuere et sit
-            amet ligula.
-          </p>
-          <div class="w-full text-base pb-4 px-6 flex justify-end">
-            <span class="text-orange-500">learn more...</span>
-          </div>
-        </a>
-      </div>
-    </div>
+    {% endfor %}
   </div>
 </section>
+{% endif %}
 
 {% endblock main %}

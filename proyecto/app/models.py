@@ -1,34 +1,36 @@
 from django.db import models
+from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
-    
-class AppUser(models.Model):
-    username = models.CharField(max_length=40)
-    password = models.CharField(max_length=40)
-    email = models.CharField(max_length=40)
-
-    def __str__(self):
-        return self.username
 
 class Profile(models.Model):
-    app_user = models.OneToOneField(AppUser, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=40)
     lastname = models.CharField(max_length=40)
-    profile_image = models.ImageField(upload_to='static/app/blog_images/', null=True)
-    description = models.CharField(max_length=200)
+    profile_image = models.ImageField(upload_to='avatars/', null=True)
+    description = models.CharField(max_length=1000)
     webpage = models.CharField(max_length=200)
 
     def __str__(self):
-        return f"{self.name} {self.lastname}"
+        return f"{self.user.username}"
 
 class BlogPost(models.Model):
-    app_user = models.ForeignKey(AppUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     summary = models.CharField(max_length=200)
     category = models.CharField(max_length=40)
     content = RichTextField()
     date = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to='static/app/blog_images/', null=True)
+    image = models.ImageField(upload_to='blog_images/', null=True)
 
     def __str__(self):
         return self.title
+
+class Message(models.Model):
+    from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_messages')
+    to_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_messages')
+    message = models.CharField(max_length=1000)
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.message
 

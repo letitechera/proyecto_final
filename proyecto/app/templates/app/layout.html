@@ -8,35 +8,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-    <title>{% block title %} Index {% endblock title %}</title>
+    <title>{% block title %} Index {% endblock title %} - Developer's Blog</title>
 
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="author" content="" />
     <script src="https://cdn.tailwindcss.com"></script>
     <!--Replace with your tailwind.css once created-->
+    <link rel="icon" href="{% static 'app/img/favicon.ico' %}" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/ec8569739b.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="{% static 'app/css/styles.css' %}" rel="stylesheet" />
     <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
 </head>
 
-<body class="leading-normal tracking-normal text-slate-700 bg-gradient-to-r from-slate-200 to-stone-400 sans-serif-font">
+<body
+    class="leading-normal tracking-normal text-slate-700 bg-gradient-to-r from-slate-200 to-stone-400 sans-serif-font">
     <!--Nav-->
     <nav id="header" class="px-4 fixed w-full z-30 top-0 text-slate-700 bg-gradient-to-r from-slate-200 to-stone-400">
         <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
             <div class="flex items-center">
-                <a class="text-slate-700 font-bold text-2xl lg:text-2xl serif-font" href="{% url 'Inicio' %}">
+                <a class="text-slate-700 font-bold text-2xl lg:text-2xl serif-font" href="{% url 'Home' %}">
                     <i class="fa-solid fa-paperclip"></i>
                     Developer's Blog
                 </a>
             </div>
             <div class="block lg:hidden pr-4">
                 <button id="nav-toggle"
-                    class="flex items-center p-1 text-pink-800 hover:text-gray-900 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-500 ease-in-out">
+                    class="flex items-center p-1 text-slate-800 hover:text-gray-900 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-500 ease-in-out">
                     <svg class="fill-current h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <title>Menu</title>
                         <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
@@ -46,38 +49,46 @@
             <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent text-black p-4 lg:p-0 z-20"
                 id="nav-content">
                 <ul class="list-reset lg:flex justify-end flex-1 items-center text-sm">
-                    <li class="mr-3">
-                        <a class="inline-block py-2 px-4 text-slate-700 hover:bg-blue-600 hover:opacity-60 duration-500 ease-in-out rounded-full"
-                            href="{% url 'About me' %}">About me</a>
+                    <li class="mr-1">
+                        <a class="inline-block py-2 px-4 text-slate-700 hover:text-white hover:bg-blue-600 hover:opacity-60 duration-500 ease-in-out rounded-full"
+                            href="{% url 'About' %}">About</a>
                     </li>
-                    <li class="mr-3">
-                        <a class="inline-block text-slate-700 hover:text-slate-700 hover:bg-blue-600 hover:opacity-60 py-2 px-4 transition duration-500 ease-in-out rounded-full"
+                    <li class="mr-1">
+                        <a class="inline-block text-slate-700 hover:text-white hover:bg-blue-600 hover:opacity-60 py-2 px-4 transition duration-500 ease-in-out rounded-full"
                             href="{% url 'Blog_Posts' %}">Search Posts</a>
                     </li>
-                    <li class="mr-3">
-                        <a class="inline-block text-slate-700 hover:text-slate-700 hover:bg-blue-600 hover:opacity-60 py-2 px-4 transition duration-500 ease-in-out rounded-full"
-                            href="{% url 'Manage_Posts' %}">Edit Posts</a>
+                    {% if request.user.is_authenticated %}
+                    <li class="mr-1">
+                        <a class="inline-block text-slate-700 hover:text-white hover:bg-blue-600 hover:opacity-60 py-2 px-4 transition duration-500 ease-in-out rounded-full"
+                            href="{% url 'My_Posts' %}">My Posts</a>
                     </li>
-                    <li class="mr-3">
-                        <a class="inline-block text-slate-700 hover:text-slate-700 hover:bg-blue-600 hover:opacity-60 py-2 px-4 transition duration-500 ease-in-out rounded-full"
-                            href="{% url 'Manage_Users' %}">Manage Users</a>
+                    <li class="mr-1">
+                        <a class="inline-block text-slate-700 hover:text-white hover:bg-blue-600 hover:opacity-60 py-2 px-4 transition duration-500 ease-in-out rounded-full"
+                            href="{% url 'Profile' username=request.user.username %}">My Profile</a>
                     </li>
-                    <li class="mr-3">
-                        <a class="inline-block text-slate-700 hover:text-slate-700 hover:bg-blue-600 hover:opacity-60 py-2 px-4 transition duration-500 ease-in-out rounded-full"
-                            href="{% url 'Manage_Profiles' %}">Manage Profiles</a>
+                    <li class="mr-1">
+                        <a class="inline-block text-slate-700 hover:text-white hover:bg-blue-600 hover:opacity-60 py-2 px-4 transition duration-500 ease-in-out rounded-full"
+                            href="{% url 'Messages' %}">Messages</a>
                     </li>
-                    <!-- <li class="mr-3">
-                        <a class="inline-block text-slate-700 hover:text-slate-700 hover:bg-blue-600 hover:opacity-60 py-2 px-4 transition duration-500 ease-in-out rounded-full"
-                            href="#">Profiles</a>
+                    <li class="mr-1 ml-2 text-slate-700">
+                        Hi <span class="font-bold text-sky-700">{{request.user.username}}</span> !
                     </li>
-                    <li class="mr-3">
-                        <a class="inline-block bg-white text-gray-700 rounded-full py-2 px-4 transition hover:text-slate-700 hover:bg-blue-600 duration-500 ease-in-out"
-                            href="#">Login</a>
+                    <li class="mr-1">
+                        <a class="ml-1 text-lg inline-block text-gray-700 rounded p-2 transition hover:opacity-60 hover:text-blue-600 duration-500 ease-in-out"
+                            href="{% url 'Logout' %}" title="Logout">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </a>
                     </li>
-                    <li class="mr-3">
-                        <a class="inline-block text-slate-700 hover:text-slate-700 hover:bg-blue-600 hover:opacity-60 py-2 px-4 transition duration-500 ease-in-out rounded-full"
-                            href="#">Sign up</a>
-                    </li> -->
+                    {% else %}
+                    <li class="mr-1">
+                        <a class="inline-block bg-slate-200 text-gray-700 rounded-full py-2 px-4 transition hover:opacity-60 hover:text-white hover:bg-blue-600 duration-500 ease-in-out"
+                            href="{% url 'Login' %}">Login</a>
+                    </li>
+                    <li class="mr-1">
+                        <a class="inline-block text-slate-700 hover:text-white hover:bg-blue-600 hover:opacity-60 py-2 px-4 transition duration-500 ease-in-out rounded-full"
+                            href="{% url 'Register' %}">Sign-up</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
@@ -113,69 +124,75 @@
             </g>
         </g>
     </svg>
-    <footer class="bg-white">
+    <footer class="bg-white border-y-8 border-[#D0D2D6]">
         <div class="container mx-auto pl-8">
-            <div class="w-full grid grid-cols-6 py-4">
-                <div class="col-span-2 mb-6 text-black">
-                    <a class="text-pink-600 hover:font-bold text-2xl lg:text-4xl" href="#">
-                        <a class="text-slate-700 font-bold text-lg serif-font" href="{% url 'Inicio' %}">
+            <div class="w-full grid grid-cols-6 py-2">
+                <div class="col-span-2 mb-4 text-black">
+                    <a class="text-slate-600 hover:font-bold text-2xl lg:text-4xl" href="#">
+                        <a class="text-slate-700 font-bold text-lg serif-font" href="{% url 'Home' %}">
                             <i class="fa-solid fa-paperclip"></i>
                             Developer's Blog
                         </a>
                     </a>
                 </div>
                 <div class="col-span-1">
-                    <p class="uppercase text-gray-500 md:mb-4 text-sm">Links</p>
-                    <ul class="mb-4">
-                        <li class="mt-2 inline-block mr-2 md:block md:mr-0 text-sm">
-                            <a href="#" class="hover:opacity-60 text-gray-800 hover:text-pink-500">FAQ</a>
+                    <p class="uppercase text-gray-500 md:mb-2 text-sm">Links</p>
+                    <ul class="mb-2">
+                        <li class="mt-1 inline-block mr-2 md:block md:mr-0 text-sm">
+                            <a href="#" class="hover:opacity-60 text-gray-800 hover:text-slate-500 transition">FAQ</a>
                         </li>
-                        <li class="mt-2 inline-block mr-2 md:block md:mr-0 text-sm">
-                            <a href="#" class="hover:opacity-60 text-gray-800 hover:text-pink-500">Help</a>
+                        <li class="mt-1 inline-block mr-2 md:block md:mr-0 text-sm">
+                            <a href="#" class="hover:opacity-60 text-gray-800 hover:text-slate-500 transition">Help</a>
                         </li>
-                        <li class="mt-2 inline-block mr-2 md:block md:mr-0 text-sm">
-                            <a href="#" class="hover:opacity-60 text-gray-800 hover:text-pink-500">Support</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-span-1">
-                    <p class="uppercase text-gray-500 md:mb-4 text-sm">Legal</p>
-                    <ul class="mb-4">
-                        <li class="mt-2 inline-block mr-2 md:block md:mr-0 text-sm">
-                            <a href="#" class="hover:opacity-60 text-gray-800 hover:text-pink-500">Terms</a>
-                        </li>
-                        <li class="mt-2 inline-block mr-2 md:block md:mr-0 text-sm">
-                            <a href="#" class="hover:opacity-60 text-gray-800 hover:text-pink-500">Privacy</a>
+                        <li class="mt-1 inline-block mr-2 md:block md:mr-0 text-sm">
+                            <a href="#"
+                                class="hover:opacity-60 text-gray-800 hover:text-slate-500 transition">Support</a>
                         </li>
                     </ul>
                 </div>
                 <div class="col-span-1">
-                    <p class="uppercase text-gray-500 md:mb-4 text-sm">Social</p>
-                    <ul class="mb-4">
-                        <li class="mt-2 inline-block mr-2 md:block md:mr-0 text-sm">
-                            <a href="#" class="hover:opacity-60 text-gray-800 hover:text-pink-500">Facebook</a>
+                    <p class="uppercase text-gray-500 md:mb-2 text-sm">Legal</p>
+                    <ul class="mb-2">
+                        <li class="mt-1 inline-block mr-2 md:block md:mr-0 text-sm">
+                            <a href="#" class="hover:opacity-60 text-gray-800 hover:text-slate-500 transition">Terms</a>
                         </li>
-                        <li class="mt-2 inline-block mr-2 md:block md:mr-0 text-sm">
-                            <a href="#" class="hover:opacity-60 text-gray-800 hover:text-pink-500">Linkedin</a>
-                        </li>
-                        <li class="mt-2 inline-block mr-2 md:block md:mr-0 text-sm">
-                            <a href="#" class="hover:opacity-60 text-gray-800 hover:text-pink-500">Twitter</a>
+                        <li class="mt-1 inline-block mr-2 md:block md:mr-0 text-sm">
+                            <a href="#"
+                                class="hover:opacity-60 text-gray-800 hover:text-slate-500 transition">Privacy</a>
                         </li>
                     </ul>
                 </div>
                 <div class="col-span-1">
-                    <p class="uppercase text-gray-500 md:mb-4 text-sm">Company</p>
-                    <ul class="mb-4">
-                        <li class="mt-2 inline-block mr-2 md:block md:mr-0 text-sm">
-                            <a href="#" class="hover:opacity-60 text-gray-800 hover:text-pink-500">Official
+                    <p class="uppercase text-gray-500 md:mb-2 text-sm">Social</p>
+                    <ul class="mb-2">
+                        <li class="mt-1 inline-block mr-2 md:block md:mr-0 text-sm">
+                            <a href="#"
+                                class="hover:opacity-60 text-gray-800 hover:text-slate-500 transition">Facebook</a>
+                        </li>
+                        <li class="mt-1 inline-block mr-2 md:block md:mr-0 text-sm">
+                            <a href="#"
+                                class="hover:opacity-60 text-gray-800 hover:text-slate-500 transition">Linkedin</a>
+                        </li>
+                        <li class="mt-1 inline-block mr-2 md:block md:mr-0 text-sm">
+                            <a href="#"
+                                class="hover:opacity-60 text-gray-800 hover:text-slate-500 transition">Twitter</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-span-1">
+                    <p class="uppercase text-gray-500 md:mb-2 text-sm">Company</p>
+                    <ul class="mb-2">
+                        <li class="mt-1 inline-block mr-2 md:block md:mr-0 text-sm">
+                            <a href="#" class="hover:opacity-60 text-gray-800 hover:text-slate-500 transition">Official
                                 Blog</a>
                         </li>
-                        <li class="mt-2 inline-block mr-2 md:block md:mr-0 text-sm">
-                            <a href="#" class="hover:opacity-60 text-gray-800 hover:text-pink-500">About
+                        <li class="mt-1 inline-block mr-2 md:block md:mr-0 text-sm">
+                            <a href="#" class="hover:opacity-60 text-gray-800 hover:text-slate-500 transition">About
                                 Us</a>
                         </li>
-                        <li class="mt-2 inline-block mr-2 md:block md:mr-0 text-sm">
-                            <a href="#" class="hover:opacity-60 text-gray-800 hover:text-pink-500">Contact</a>
+                        <li class="mt-1 inline-block mr-2 md:block md:mr-0 text-sm">
+                            <a href="#"
+                                class="hover:opacity-60 text-gray-800 hover:text-slate-500 transition">Contact</a>
                         </li>
                     </ul>
                 </div>
@@ -184,7 +201,7 @@
     </footer>
 
     <div>
-        <p class="text-center p-3 text-sm">by Leticia Techera</a></p>
+        <p class="text-center p-3 text-sm">Proyecto de Leticia Techera</a></p>
     </div>
     <!-- jQuery if you need it
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
