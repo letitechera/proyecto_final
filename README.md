@@ -1,18 +1,8 @@
-# Tercer entrega del curso Python de Coderhouse
+# Entrega final del curso Python de Coderhouse
 
-#### Pasos para probar las funcionalidades:
-- Correr la aplicación
-- Ir a 'Register' en el menú principal
-- Crear un usuario (abajo del formulario irán apareciendo los usuarios) (no se pueden crear usuarios con el mismo username)
-- Ir a 'Edit Profile' en el menú principal
-- Crear un profile con el usuario nuevo (abajo del formulario irán apareciendo los perfiles, como tienen reclación de uno a uno, no se puede reutilizar el usuario)
-- Ir a 'My Posts' en el menú principal
-- Crear blog posts con cualquier usuario (abajo del formulario irán apareciendo los posts)
-- Para buscar posts en la base de datos, ir a 'Search Posts' en el menú principal
-- Buscar algun post :)
-- Si se quiere limpiar la búsqueda, dar click en 'Submit' con el campo de buscar vacío
-
-Nota: La carga de imágenes todavía no está funcionando
+#### Notas:
+- El video explicativo de la web en uso se encuentra en el mismo directorio que este README
+- Dentro de la carpeta "datos de prueba" hay imágenes y datos que se pueden usar para el testing de la aplicación
 
 #### Gracias!!
 #### Leticia Techera
