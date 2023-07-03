@@ -117,14 +117,23 @@
           <div class="w-full h-[150px]">
             <img src="{{ blog.image.url }}" class="object-cover w-full h-[150px] rounded-t" />
           </div>
-          <p class="text-gray-400 w-full text-xs md:text-sm px-6 pt-2 pb-1">
+          <p class="text-gray-400 w-full text-xs md:text-xs px-6 pt-2 pb-1">
             May 23, 2023
           </p>
           <div class="w-full font-bold text-xl px-6 serif-font pb-1">
             {{blog.title}}
           </div>
-          <p class="text-sm px-6 mb-2 pb-1">
-            {{blog.summary}}
+          <a href="{% url 'Profile' username=blog.user.username %}"
+            class="text-sky-700 hover:opacity-80 transition duration-500 ease-in-out px-6">
+            <span class="text-sm text-gray-600">By</span>
+            {% if blog.user.profile.name %}
+            <span class="text-sm">{{blog.user.profile.name}} {{blog.user.profile.lastname}}</span>
+            {% else %}
+            <span class="text-sm">{{ blog.user.email }}</span>
+            {% endif %}
+          </a>
+          <p class="text-sm px-6 mb-2 pb-4">
+            {{blog.summary|truncatechars:100}}
           </p>
         </a>
       </div>
