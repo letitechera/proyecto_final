@@ -34,3 +34,7 @@ class Message(models.Model):
     def __str__(self):
         return self.message
 
+class AboutMe(models.Model):
+    image = models.ImageField(upload_to='about_me_images')
+    description = RichTextField(null=True)
+    header = models.CharField(max_length=1000, null=True)

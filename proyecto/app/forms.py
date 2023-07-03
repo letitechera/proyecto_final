@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from ckeditor.widgets import CKEditorWidget
-from .models import BlogPost, Message
+from .models import AboutMe, BlogPost, Message
 
 class SearchPosts(forms.Form):
     search = forms.CharField(required=False)
@@ -39,5 +39,10 @@ class SelectRecipientForm(forms.Form):
     
 class MessageForm(forms.Form):
     message_input = forms.CharField(label='', widget=forms.Textarea)
+
+class AboutMeForm(forms.ModelForm):
+    class Meta:
+        model = AboutMe
+        fields = ['image','description','header']
 
 

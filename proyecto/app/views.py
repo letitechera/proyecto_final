@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Q, Max 
-from .models import BlogPost, Message, Profile
-from .forms import BlogPostForm, MessageForm, SearchPosts, ProfileForm, RegisterUserForm, SelectRecipientForm
+from .models import AboutMe, BlogPost, Message, Profile
+from .forms import AboutMeForm, BlogPostForm, MessageForm, SearchPosts, ProfileForm, RegisterUserForm, SelectRecipientForm
 from datetime import date
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as django_login, authenticate
@@ -15,7 +15,18 @@ def inicio(request):
     return render(request, "app/index.html", {'latest_posts': latest_posts})
 
 def about(request):
-    return render(request, "app/about-me.html")
+    about_me_info = AboutMe.objects.first()
+
+    if request.method == 'POST':
+        form = AboutMeForm(request.POST, request.FILES, instance=about_me_info)
+        if form.is_valid():
+            form.save()
+            return redirect('About')  # Redirect to the updated "About Me" page
+    
+    else:
+        form = AboutMeForm(instance=about_me_info)
+    
+    return render(request, 'app/about-me.html', {'form': form, 'about_me':about_me_info})
 
 def login(request):
     if request.method == 'POST':

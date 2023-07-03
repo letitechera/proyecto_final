@@ -1,0 +1,22 @@
+Modern JavaScript Explained For Dinosaurs
+
+
+Learning modern JavaScript is tough if you haven’t been there since the beginning. The ecosystem is growing and changing so rapidly that it’s hard to understand the problems that different tools are t
+
+Learning modern JavaScript is tough if you haven’t been there since the beginning. The ecosystem is growing and changing so rapidly that it’s hard to understand the problems that different tools are trying to solve.
+
+I started programming in 1998 but only began to learn JavaScript seriously in 2014. At the time I remember coming across Browserify and staring at its tagline:
+
+“Browserify lets you require(‘modules’) in the browser by bundling up all of your dependencies.”
+
+I pretty much didn’t understand any word in this sentence, and struggled to make sense of how this would be helpful for me as a developer.
+
+The goal of this article is to provide a historical context of how JavaScript tools have evolved to what they are today in 2017. We’ll start from the beginning and build an example website like the dinosaurs did — no tools, just plain HTML and JavaScript.
+Then we’ll introduce different tools incrementally to see the problems that they solve one at a time. With this historical context, you’ll be better able to learn and adapt to the ever-changing JavaScript landscape going forward. Let’s get started!
+
+Modern JavaScript can definitely be frustrating to work with as it continues to change and evolve at a rapid pace.
+
+But even though it may seem at times like re-inventing the wheel, JavaScript’s rapid evolution has helped push innovations such as hot reloading, real-time linting, and time-travel debugging.
+
+It’s an exciting time to be a developer, and I hope this information can serve as a roadmap to help you on your journey!
+
