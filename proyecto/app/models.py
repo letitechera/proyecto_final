@@ -7,7 +7,7 @@ class Profile(models.Model):
     name = models.CharField(max_length=40)
     lastname = models.CharField(max_length=40)
     profile_image = models.ImageField(upload_to='avatars/', null=True)
-    description = models.CharField(max_length=1000)
+    description = models.CharField(max_length=2000)
     webpage = models.CharField(max_length=200)
 
     def __str__(self):

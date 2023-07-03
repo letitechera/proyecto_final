@@ -183,7 +183,7 @@ def messages(request):
         Q(id__in=[c['to_user'] for c in conversations])
     ).exclude(id=request.user.id)
 
-    contacts = Profile.objects.filter(user__id__in=usersFound)
+    contacts = Profile.objects.filter(user__id__in=usersFound).exclude(id=request.user.id)
 
     for contact in contacts:
         contact.last_message = Message.objects.filter(
@@ -195,8 +195,8 @@ def messages(request):
 
 @login_required
 def conversation(request, username):
-    with_user = get_object_or_404(User, username=username)
-    with_user.profile = Profile.objects.get(user=with_user)
+    with_user = User.objects.get(username=username)
+    with_user.profile, _ = Profile.objects.get_or_create(user=with_user)
 
     form = MessageForm()
 
